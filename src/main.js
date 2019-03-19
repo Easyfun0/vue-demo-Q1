@@ -20,7 +20,6 @@ new Vue({
   template: '<App/>'
 })
 
-
 // router.beforeEach((to, from, next) => {
 //   console.log('to',to,'from', from,'next', next)
 // })

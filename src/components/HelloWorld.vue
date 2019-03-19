@@ -1,15 +1,17 @@
 <template>
-<div>
+<div class="hello">
 <a href="#" @click.prevent="signout">登出</a>
 </div>
 </template>
 
 <script>
+'use strict'
+
 export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'test'
     }
   },
   methods: {
@@ -24,6 +26,6 @@ export default {
       })
 
     }
-  },
+  }
 }
-
+</script>
