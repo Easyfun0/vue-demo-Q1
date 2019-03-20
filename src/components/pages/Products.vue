@@ -54,10 +54,10 @@
                 </div>
                 <div class="form-group">
                 <label for="customFile">或 上傳圖片
-                    <i class="fas fa-spinner fa-spin"></i>
+                    <i class="fas fa-spinner fa-spin" ></i>
                 </label>
                 <input type="file" id="customFile" class="form-control"
-                    ref="files">
+                    ref="files" @change="uploadFile">
                 </div>
                 <img img="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=828346ed697837ce808cae68d3ddc3cf&auto=format&fit=crop&w=1350&q=80"
                 class="img-fluid" :src="tempProduct.imgeUrl" alt="">
@@ -224,6 +224,21 @@ export default {
           $('#delProductModal').modal('hide')
           console.log('資料刪除失敗')
         }
+      })
+    },
+    uploadFile () {
+      console.log(this)
+      const uploadedFile = this.$refs.files.files[0]
+      const vm = this
+      const formData = new FormData()
+      formData.append('file-to-upload', uploadedFile)
+      const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/upload`
+      this.$http.post(url, formData, {
+        headers: {
+          'Content-Type': 'multipaet/form-data'
+        }
+      }).them((response) => {
+        console.log(response.data)
       })
     }
   },
