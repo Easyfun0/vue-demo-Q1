@@ -5,6 +5,7 @@
       <div class="row">
           <Sidebar></Sidebar>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+          <router-view></router-view>
         </main>
       </div>
     </div>
@@ -16,9 +17,9 @@ import Sidebar from './Sidebar'
 import Navbar from './Navbar'
 
 export default {
-    components: {
-      Sidebar,
-      Navbar
-    }
+  components: {
+    Sidebar,
+    Navbar
   }
+}
 </script>

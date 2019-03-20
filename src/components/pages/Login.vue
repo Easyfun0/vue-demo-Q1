@@ -23,7 +23,6 @@
       </label>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-
   </form>
   </div>
 </template>
@@ -44,39 +43,35 @@ export default {
   },
   methods: {
     signin () {
-      const api = `${process.env.APIPATH}/signin`
+      const api = `${process.env.APIPATH}/admin/signin`
       const vm = this
       this.$http.post(api, vm.user).then((response) => {
         console.log(response.data)
         if (response.data.success) {
-          vm.$router.push('/')
+          vm.$router.push('/admin/products')
         }
       })
     }
   }
-
 }
 </script>
 
 <style scoped>
-  html,
+html,
 body {
-  height: 100%;
+    height: 100%;
 }
 
 body {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-align: center;
-  align-items: center;
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: #f5f5f5;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #f5f5f5;
 }
-/* .middle {
-  width: auto;
-  height: 100%;
-} */
+
 .form-signin {
   width: 100%;
   max-width: 420px;
