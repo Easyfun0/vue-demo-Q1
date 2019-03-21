@@ -1,5 +1,6 @@
 <template>
     <div>
+        <loading :active.sync="isLoading"></loading>
         <div class="text-right mt-4">
             <button class="btn btn-primary" @click="openModal(true)" >新增</button>
         </div>
@@ -19,7 +20,7 @@
                     <td> {{item.category}} </td>
                     <td> {{item.title}} </td>
                     <td class="text-right"> {{item.origin_price}} </td>
-                    <td class="text-right"> {{item.price}} </td>
+                    <td class="text-right"> {{item.price | currency}} </td>
                     <td>
                         <span v-if="item.is_enabled" class="text-success">啟用</span>
                         <span v-else>未啟用</span>
@@ -31,6 +32,9 @@
                 </tr>
             </tbody>
         </table>
+        <!-- pagination -->
+        <!-- <Pagination : pagination="pagination" v-on:getPageProducts="getProducts"/> -->
+        <pagination :page-data="pagination" @changepage="getProducts" class="d-flex justify-content-center"></pagination>
         <!-- Modal -->
     <div class="modal fade" id="productModal" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -54,7 +58,7 @@
                 </div>
                 <div class="form-group">
                 <label for="customFile">或 上傳圖片
-                    <i class="fas fa-spinner fa-spin" ></i>
+                    <i class="fas fa-sync fa-spin" v-if="status.fileUploading"></i>
                 </label>
                 <input type="file" id="customFile" class="form-control"
                     ref="files" @change="uploadFile">
@@ -158,22 +162,31 @@
 
 <script>
 import $ from 'jquery'
+import Pagination from './Pagination'
 export default {
   data () {
     return {
       products: [],
+      pagination: {},
       tempProduct: {},
-      isNew: false
+      isNew: false,
+      isLoading: false,
+      status: {
+        fileUploading: false
+      }
     }
   },
   methods: {
-    getProducts () {
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/products`
+    getProducts (page = 1) {
+      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/products?page=${page}`
       const vm = this
       console.log(process.env.APIPATH, process.env.CUSTOMPATH)
+      vm.isLoading = true
       this.$http.get(api).then((response) => {
         console.log(response.data)
+        vm.isLoading = false
         vm.products = response.data.products
+        vm.pagination = response.data.pagination
       })
     },
     openModal (isNew, item) {
@@ -233,22 +246,29 @@ export default {
       const formData = new FormData()
       formData.append('file-to-upload', uploadedFile)
       const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/upload`
+      vm.status.fileUploading = true
       this.$http.post(url, formData, {
         headers: {
           'Content-Type': 'multipaet/form-data'
         }
       }).then((response) => {
         console.log(response.data)
+        vm.status.fileUploading = false
         if (response.data.success) {
           // vm.tempProduct.imageUrl = response.data.imageUrl
           // console.log(vm.tempProduct)
           vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl)
+        } else {
+          this.$bus.$emit('message:push', response.data.message, 'danger')
         }
       })
     }
   },
   created () {
     this.getProducts()
+  },
+  components: {
+    Pagination
   }
 }
 </script>
