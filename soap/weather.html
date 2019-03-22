@@ -1,0 +1,41 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>SoapClient</title>
+		<script type="text/javascript" src="soapclient.js"></script>
+		<script type="text/javascript">
+			var url = "http://www.webservicex.net/globalweather.asmx";
+			function GetWeather()
+			{
+				var pl = new SOAPClientParameters();//Parameter
+				pl.add("CityName", document.getElementById("city").value);//Add Param1
+				pl.add("CountryName", document.getElementById("country").value);//Add Param2
+				//invoke(url,ws function name, parameter, async, call back function name)
+				SOAPClient.invoke(url, "GetWeather", pl, true, GetWeather_callBack);
+ 
+			}
+			function GetWeather_callBack(r)
+			{
+				document.getElementById("result").value = r;
+			}
+		</script>
+	</head>
+	<body>
+		<h1>GetWeather</h1>
+		<table>
+			<tr>
+				<td>City:</td>
+				<td><input type="text" value="Taipei" id="city"></td>
+			</tr>
+			<tr>
+				<td>Country:</td>
+				<td><input type="text" value="Taiwan" id="country"></td>
+			</tr>
+		</table>
+		<br>
+		<input type="button" onclick="GetWeather()" value="Send">
+		<br>
+		<br>
+		<textarea name="result" id="result" cols="80" rows="15"></textarea>
+	</body>
+</html>

@@ -2,15 +2,16 @@
     <div>
         <loading :active.sync="isLoading"></loading>
         <div class="text-right mt-4">
+            <button class="btn btn-primary" @click.prevent="beforePath" >前一頁</button>
             <button class="btn btn-primary" @click="openModal(true)" >新增</button>
         </div>
         <table class="table mt-4">
             <thead>
                 <tr>
-                    <th width="120">分類</th>
-                    <th>產品名稱</th>
-                    <th width="80">原價</th>
-                    <th width="120">售價</th>
+                    <th width="120">區域</th>
+                    <th width="120">點位名稱</th>
+                    <th width="10">水位</th>
+                    <th width="10">電力</th>
                     <th width="120">是否啟用</th>
                     <th width="120">編輯</th>
                 </tr>
@@ -177,6 +178,9 @@ export default {
     }
   },
   methods: {
+    beforePath () {
+      this.$router.go(-1)
+    },
     getProducts (page = 1) {
       const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/products?page=${page}`
       const vm = this
