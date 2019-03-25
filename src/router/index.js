@@ -9,6 +9,7 @@ import Menu from '@/components/pages/menu'
 import position1 from '@/components/pages/position1'
 // import position2 from '@/components/pages/position2'
 // import position3 from '@/components/pages/position3'
+import Abnormal from '@/components/pages/Abnormal'
 
 Vue.use(Router)
 
@@ -55,6 +56,18 @@ export default new Router({
           name: 'Products',
           component: Products,
           meta: { requiresAuth: true }
+        }
+      ]
+    },
+    {
+      path: '/',
+      component: Dashboard,
+      name: Dashboard,
+      children: [
+        {
+          path: 'abnormal',
+          name: 'Abnormal',
+          component: Abnormal
         }
       ]
     }
