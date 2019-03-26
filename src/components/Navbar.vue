@@ -1,7 +1,9 @@
 <template>
         <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#" @click.prevent="updatePath">後台頁面</a>
-                  <a class="nav-link text-danger" href="#" mr-auto>水情首頁</a>
+            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="" >後台頁面</a>
+                  <a>
+                  <router-link to="/admin/location" class="nav-link" mr-auto>水情首頁</router-link>
+                  </a>
 
             <ul class="navbar-nav px-3">
                 <li class="nav-item text-nowrap">

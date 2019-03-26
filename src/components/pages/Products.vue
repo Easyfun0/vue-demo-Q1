@@ -8,7 +8,7 @@
         <table class="table mt-4">
             <thead>
                 <tr style="color:red;">
-                    <th width="50" style="font-size:2em">區域</th>
+                    <!-- <th width="50" style="font-size:2em">區域</th> -->
                     <th width="10" style="font-size:2em">時間</th>
                     <th width="100" style="font-size:2em">點位名稱</th>
                     <th width="100" style="font-size:2em">水位(mm)</th>
@@ -19,7 +19,7 @@
             </thead>
             <tbody>
                 <tr v-for="(item) in products" :key="item.id">
-                    <td style="font-size:30px"> {{item.category}} </td>
+                    <!-- <td style="font-size:30px"> {{item.category}} </td> -->
                     <td id="time">  </td>
                     <td style="font-size:20px"> {{item.title}} </td>
                     <td class="" style="font-size:30px"> {{item.origin_price}} </td>
